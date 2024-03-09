@@ -1,12 +1,14 @@
 // Temp code
+let chatid;
 
 async function sendMessage() {
     if (!stompClient.active) {
         console.log('Not connected');
         return;
     }
+    console.log(chatid);
     stompClient.publish({
-        destination: "/app/input/" + 1, // TODO: get chatroom id
+        destination: "/app/input/" + chatid, // TODO: get chatroom id
         body: JSON.stringify({'content': $("#name").val()}) // TODO: Get value from html element
     });
 }
@@ -14,6 +16,8 @@ async function sendMessage() {
 async function handleUserLogIn() {
     const username = document.getElementById("uname").value;
     const password = document.getElementById("psw").value;
+    let ids = await fetchChatRoomIds(username);
+    chatid = ids[0];
     if (await validCredentials(username, password)) {
         console.log('Login successful');
         let tmp = document.getElementById("loggedin");
