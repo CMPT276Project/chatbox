@@ -27,14 +27,23 @@ public class ChatroomController {
     }
 
     @ResponseBody
-    @PostMapping("/chatroom/createChatroom")
-    public void createChatroom(@RequestBody Map<String, String> body) {
+    @PostMapping("/chatroom/createChatroom/private")
+    public void createChatroomPrivate(@RequestBody Map<String, String> body) {
         Chatroom chatroom = new Chatroom();
         chatroomRepository.save(chatroom);
         ChatroomMember user1 = new ChatroomMember(chatroom.getChatRoomId(), body.get("username1"));
         chatroomMemberRepository.save(user1);
         ChatroomMember user2 = new ChatroomMember(chatroom.getChatRoomId(), body.get("username2"));
         chatroomMemberRepository.save(user2);
+    }
+
+    @ResponseBody
+    @PostMapping("/chatroom/createRoom/group")
+    public void createChatroomGroup(@RequestBody Map<String, String> body) {
+        Chatroom chatroom = new Chatroom();
+        chatroomRepository.save(chatroom);
+        ChatroomMember user;
+        // TODO: For loop and add all users to the chatroom
     }
 
 }

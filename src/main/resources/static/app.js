@@ -105,7 +105,7 @@ async function subscribeToRooms(username) {
 
 async function createChatRoom(username1, username2) {
     try {
-        const response = await fetch('/chatroom/createChatroom', {
+        const response = await fetch('/chatroom/createChatroom/private', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
