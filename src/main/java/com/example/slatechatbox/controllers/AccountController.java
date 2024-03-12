@@ -74,7 +74,7 @@ public String login(@RequestParam Map<String, String> formData, Model model, Htt
     public String logout(HttpServletRequest request) {
         System.out.println("logout");
         request.getSession().invalidate();
-        return "account/login";
+        return "account/logout";
 
 }
 
