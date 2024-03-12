@@ -18,12 +18,14 @@ html {
 
 #logo {
     width: 200px;
+    margin: 15px;
+    margin-top: 5vh;
 }
 
 #card {
     background-color: var(--lightshade);
     width: 400px;
-    height: 500px;
+    height: 475px;
     display: flex;
     align-items: center;
     flex-flow: column;
@@ -32,7 +34,7 @@ html {
     border-radius: 9px;
     box-sizing: border-box;
     padding: 50px;
-    filter: drop-shadow(black 0.5rem 0.5rem 10px);
+    filter: drop-shadow(black 0.5rem 0.5rem 15px);
 }
 
 #signin {
@@ -48,11 +50,13 @@ html {
     border-radius: 8px;
     font-weight: bold;
     flex: 0 0 auto;
+    font-size: 18px;
 }
 
 #logintext {
     font-size: 24px;
-    font-size: bold;
+    font-weight: bold;
+    align-self: flex-start;
 }
 
 #signreg{
@@ -72,10 +76,15 @@ input {
     height: 50px;
     border: solid var(--darkshade) 2px;
     border-radius: 6px;
+    font-size: 16px;
+}
+
+input:hover {
+    cursor: pointer;
 }
 
 a {
-    box-sizing: contexr-box;
+    box-sizing: content-box;
     all:unset;
     background: none;
     color: var(--darkaccent);
@@ -86,5 +95,5 @@ a {
 
 #register {
     box-sizing: content-box;
-    margin: 10px;
+    margin: 15px;
 }
