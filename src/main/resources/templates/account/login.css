@@ -1,0 +1,14 @@
+:root {
+    --lightshade: #eaebe9;
+    --lightaccent: #818582;
+    --maincolor: #83A37C;
+    --darkaccent: #92756A; 
+    --darkshade: #443f46;
+}
+
+html {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-sizing: border-box;
+    background-color: var(--darkshade);
+    color: var(--lightshade);
+}
