@@ -1,53 +1,94 @@
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SLATE</title>
+    <title>SLATE Homepage</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #443F46;
+            background-color: #443F46; 
         }
-        .btn-settings, .btn-chat-history 
-        {
-            background-color: #83A37C;
+        .btn-signout, .btn-history, .btn-chat-room {
+            background-color: #83A37C; 
             border-color: #83A37C;
             color: white;
         }
-        .header-text 
-        {
+        .header-text {
             color: white;
             text-align: center;
         }
-        .fixed-top-right 
-        {
+        
+        .translation-section {
+            background-color: white; 
+            border-radius: 4px;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        
+        .fixed-top-right {
             position: fixed;
             top: 8px;
             right: 16px;
         }
-        .fixed-bottom-left 
-        {
+        .fixed-bottom-left {
             position: fixed;
             bottom: 8px;
             left: 16px;
+        }
+        .fixed-bottom-right {
+            position: fixed;
+            bottom: 8px;
+            right: 16px;
+        }
+        .navbar-custom 
+        {
+            background-color: #565656; /*light gray background, nav-bar */
+        }
+        .navbar-brand
+        {
+            color: white; 
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <a class="navbar-brand" href="#">SLATE</a> <!-- SLATE logo, we can add a hyperlink defualt homepage -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="signout.html">Sign Out</a> <!-- Link to sign out, needed -->
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
     <div class="row">
-        <div class="col-md-12">
-            <!-- <h1 class="header-text">SLATE</h1> -->
-            <img src = "slate_proto_3.webp" class /> <!-- DISPLAY image as header-->
+        <div class="col-md-6">
+            <div class="translation-section">
+                <h2>English</h2>
+                <p>User's text</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="translation-section">
+                <h2>Translated language</h2>
+                <p>Translated text</p>
+            </div>
         </div>
     </div>
 </div>
 
-<button class="btn btn-settings fixed-top-right">Settings</button>
-<button class="btn btn-chat-history fixed-bottom-left">Chat History</button>
+<!-- Changed Settings to Sign Out -->
+<button class="btn btn-signout fixed-top-right">Sign Out</button>
+<!-- History and Chat Room buttons -->
+<button class="btn btn-history fixed-bottom-left">History</button>
+<button class="btn btn-chat-room fixed-bottom-right">Chat Room</button>
 
 </body>
 </html>
