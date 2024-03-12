@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
     <head>
-        <title>Sample login page</title>
+        <title>Login</title>
         <link rel="stylesheet" href="login.css">
     </head>
     <body>
         <form action="/login" method="post">
-            <div><label> User Name : <input type="text" name="username" required/> </label></div>
-            <div><label> Password: <input type="password" name="password" required/> </label></div>
-            <div><input type="submit" value="Sign In"/></div>
+            <div class="container">
+                <img id="logo" src="../../static/images/slatelogo1.png" alt="Slate logo">
+                <div id="card">
+                    <div id="logintext">Login</div>
+                    <div id="username"><input type="text" placeholder = "Username" name="username" required/> </div>
+                    <div id="password"><input type="password" placeholder = "Password" name="password" required/> </div>
+                    <div class="container" id="sign-reg">
+                        <input id="signin" type="submit" value="Sign In"/>
+                        <div id="register"><a href="/register">register an account</a></div>
+                    </div>
+                </div>
+            </div>
         </form>
-        <a href="/register">register an account</a>
     </body>
 </html>
