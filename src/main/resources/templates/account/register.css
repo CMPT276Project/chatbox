@@ -1,0 +1,99 @@
+:root {
+    --lightshade: #eaebe9;
+    --lightaccent: #818582;
+    --maincolor: #83A37C;
+    --darkaccent: #92756A; 
+    --darkshade: #443f46;
+}
+
+html {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: var(--darkshade);
+    color: var(--lightshade);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#logo {
+    width: 200px;
+    margin: 15px;
+    margin-top: 5vh;
+}
+
+#card {
+    background-color: var(--lightshade);
+    width: 400px;
+    height: 475px;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    color: var(--darkshade);
+    gap: 50px;
+    border-radius: 9px;
+    box-sizing: border-box;
+    padding: 50px;
+    filter: drop-shadow(black 0.5rem 0.5rem 15px);
+}
+
+#register {
+    background: none;
+    color: var(--lightshade);
+    border: none;
+    padding: none;
+    font:inherit;
+    outline:inherit;
+    background-color: var(--maincolor);
+    width: 125px;
+    height: 50px;
+    border-radius: 8px;
+    font-weight: bold;
+    flex: 0 0 auto;
+    font-size: 18px;
+}
+
+#registertext {
+    font-size: 24px;
+    font-weight: bold;
+    align-self: flex-start;
+}
+
+#signreg{
+    flex: display;
+    flex-flow: column;
+}
+
+input {
+    background: none;
+    color: var(--lightaccent);
+    border: none;
+    padding: none;
+    font:inherit;
+    outline:inherit;
+    background-color: var(--lightshade);
+    width: 300px;
+    height: 50px;
+    border: solid var(--darkshade) 2px;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+input:hover {
+    cursor: pointer;
+}
+
+a {
+    box-sizing: content-box;
+    all:unset;
+    background: none;
+    color: var(--darkaccent);
+    border: none;
+    padding: none;
+    font:inherit;
+}
+
+#login {
+    box-sizing: content-box;
+    margin: 15px;
+}
