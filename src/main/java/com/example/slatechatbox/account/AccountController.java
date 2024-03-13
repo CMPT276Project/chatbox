@@ -1,4 +1,4 @@
-package com.example.slatechatbox.controllers;
+package com.example.slatechatbox.account;
 
 import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-
-import com.example.slatechatbox.models.Account;
-import com.example.slatechatbox.models.AccountRepository;
 
 
 

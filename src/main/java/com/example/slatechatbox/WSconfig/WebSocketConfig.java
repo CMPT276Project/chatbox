@@ -1,4 +1,4 @@
-package com.slate.slatechatbox.WSconfig;
+package com.example.slatechatbox.WSconfig;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

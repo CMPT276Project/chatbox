@@ -1,4 +1,4 @@
-package com.example.slatechatbox.models;
+package com.example.slatechatbox.account;
 
 import java.util.List;
 

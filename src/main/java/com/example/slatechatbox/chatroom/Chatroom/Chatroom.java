@@ -1,4 +1,4 @@
-package com.slate.slatechatbox.chatroom.Chatroom;
+package com.example.slatechatbox.chatroom.Chatroom;
 
 import jakarta.persistence.*;
 

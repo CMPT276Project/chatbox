@@ -1,14 +1,15 @@
-package com.slate.slatechatbox.chatroom;
+package com.example.slatechatbox.chatroom;
 
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import com.slate.slatechatbox.chatroom.ChatroomMember.ChatroomMemberRepository;
-import com.slate.slatechatbox.chatroom.ChatroomMember.ChatroomMember;
-import com.slate.slatechatbox.chatroom.Chatroom.ChatroomRepository;
-import com.slate.slatechatbox.chatroom.Chatroom.Chatroom;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.slatechatbox.chatroom.Chatroom.Chatroom;
+import com.example.slatechatbox.chatroom.Chatroom.ChatroomRepository;
+import com.example.slatechatbox.chatroom.ChatroomMember.ChatroomMember;
+import com.example.slatechatbox.chatroom.ChatroomMember.ChatroomMemberRepository;
 
 @Controller
 public class ChatroomController {

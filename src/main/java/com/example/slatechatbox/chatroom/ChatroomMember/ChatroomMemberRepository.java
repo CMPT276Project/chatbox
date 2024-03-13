@@ -1,4 +1,4 @@
-package com.slate.slatechatbox.chatroom.ChatroomMember;
+package com.example.slatechatbox.chatroom.ChatroomMember;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

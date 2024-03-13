@@ -1,4 +1,4 @@
-package com.slate.slatechatbox.message;
+package com.example.slatechatbox.message;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
