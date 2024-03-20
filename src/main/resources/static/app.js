@@ -175,7 +175,7 @@ async function disconnect() {
 
 // DO NOT CHANGE
 const stompClient = new StompJs.Client({
-    brokerURL: 'ws://localhost:8080/websocket',
+    brokerURL: 'ws://chatboxdemo.onrender.com/websocket',
 });
 
 stompClient.onConnect = (frame) => {
