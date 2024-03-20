@@ -22,7 +22,6 @@ async function handleUserLogIn() {
         console.log('Login successful');
         let tmp = document.getElementById("loggedin");
         tmp.innerText = "Logged in as " + username;
-        await connect();
         await subscribeToRooms(username);
     } else {
         console.log('Login failed');
@@ -37,6 +36,10 @@ $(function () {
     $( "form" ).on('submit', (e) => e.preventDefault());
     $( "#send" ).click(() => sendMessage());
 });
+
+window.onload = async function() {
+    await connect();
+};
 
 const isLoggedIn = false;
 
