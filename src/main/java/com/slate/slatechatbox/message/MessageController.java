@@ -16,25 +16,18 @@ public class MessageController {
   @Autowired
   private MessageRepository messageRepository;
 
-  @MessageMapping("/input/{id}")
-  @SendTo("/topic/output/{id}")
-  public Message message(@DestinationVariable String id, Message message) throws Exception {
+  @MessageMapping("/input")
+  @SendTo("/topic/output")
+  public Message message(Message message) throws Exception {
+    messageRepository.save(message);
     return message;
   }
 
   @ResponseBody
-  @GetMapping("/message/getMessages/{id}")
-  public List<Message> getMessagesByChatRoomId(@PathVariable String id) {
-      List<Message> list = messageRepository.findAllByChatRoomId(id);
+  @GetMapping("/message/getAll")
+  public List<Message> getMessagesByChatRoomId() {
+      List<Message> list = messageRepository.findAllChatMessages();
       return list;
-  }
-
-  @ResponseBody
-  @PostMapping("/message/storeMessage")
-  public void storeMessage(@RequestBody Map<String, String> body) {
-      Message message = new Message(
-        Integer.parseInt(body.get("chatRoomId")), body.get("content"), body.get("sender"), body.get("timeStampMilliseconds"));
-      messageRepository.save(message);
   }
 
 }

@@ -1,0 +1,50 @@
+:root {
+    --lightshade: #eaebe9;
+    --lightaccent: #818582;
+    --maincolor: #83A37C;
+    --darkaccent: #92756A; 
+    --darkshade: #443f46;
+}
+
+html {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: var(--darkshade);
+    color: var(--lightshade);
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#logo {
+    width: 200px;
+    margin: 15px;
+    margin-top: 5vh;
+}
+
+#logoutMessage {
+    background-color: var(--lightshade);
+    height: 500 px;
+    width: auto;
+    gap: 50px;
+    padding-top: 15px;
+    padding-bottom: 30px;
+    filter: drop-shadow(black 0.5rem 0.5rem 15px);
+    align-items: center;
+}
+
+#text {
+    color: var(--darkshade);
+}
+
+#loginLink {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    border: solid var(--darkshade) 1px;
+    border-radius: 8px;
+    background-color: var(--maincolor);
+} 
+

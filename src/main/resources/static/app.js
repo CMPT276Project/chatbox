@@ -1,31 +1,34 @@
-// Temp code
-let chatid;
+window.onload = async function () {
+    connect();
+    const messages = await getMessages();
+    messages.forEach(message => appendMessage(message.content));
+}
+
+userId = 1;
 
 async function sendMessage() {
     if (!stompClient.active) {
         console.log('Not connected');
         return;
     }
-    console.log(chatid);
     stompClient.publish({
-        destination: "/app/input/" + chatid, // TODO: get chatroom id
-        body: JSON.stringify({'content': $("#name").val()}) // TODO: Get value from html element
+        destination: "/app/input",
+        body: JSON.stringify(
+            {
+                uid: userId,
+                content: $("#name").val(),
+                timeStampMilliseconds: new Date().getTime()
+            })
     });
 }
 
-async function handleUserLogIn() {
-    const username = document.getElementById("uname").value;
-    const password = document.getElementById("psw").value;
-    let ids = await fetchChatRoomIds(username);
-    chatid = ids[0];
-    if (await validCredentials(username, password)) {
-        console.log('Login successful');
-        let tmp = document.getElementById("loggedin");
-        tmp.innerText = "Logged in as " + username;
-        await subscribeToRooms(username);
-    } else {
-        console.log('Login failed');
+async function getMessages() {
+    if (!stompClient.active) {
+        console.log('Not connected');
+        return;
     }
+    const result = await fetch('/message/getAll');
+    return await result.json();
 }
 
 function appendMessage(message) {
@@ -33,156 +36,32 @@ function appendMessage(message) {
 }
 
 $(function () {
-    $( "form" ).on('submit', (e) => e.preventDefault());
-    $( "#send" ).click(() => sendMessage());
+    $("form").on('submit', (e) => e.preventDefault());
+    $("#send").click(() => sendMessage());
 });
 
-window.onload = async function() {
-    await connect();
-};
-
-const isLoggedIn = false;
-
-async function validCredentials(username, password) {
-    try {
-        const response = await fetch('/user/validateUser', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
-        });
-        const text = await response.text();
-        return text ? true : false;
-    }
-    catch (error) {
-        console.error(error);
-        return false;
-    }
-}
-
-
-
-
-// functions for chatroom
-
-async function fetchUserInfo(username) {
-    try {
-        const response = await fetch('/user/getUserInfo/' + username, {
-            method: 'GET'
-        });
-        const text = await response.text();
-        return text ? JSON.parse(text) : {};
-    }
-    catch (error) {
-        console.error(error);
-        return {};
-    }
-}
-
-async function fetchChatRoomIds(username) {
-    try {
-        const response = await fetch('/chatroom/getChatroomIds/' + username, {
-            method: 'GET'
-        });
-        const text = await response.text();
-        return text ? JSON.parse(text) : [];
-    }
-    catch (error) {
-        console.error(error);
-        return [];
-    }
-}
-
-async function subscribeToRooms(username) {
-    const chatIds = await fetchChatRoomIds(username);
-    chatIds.forEach(chatId => {
-        stompClient.subscribe('/topic/output/' + chatId, (response) => {
-            appendMessage(JSON.parse(response.body).content);
-        });
-    });
-}
-
-async function createChatRoom(username1, username2) {
-    try {
-        const response = await fetch('/chatroom/createChatroom/private', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username1: username1,
-                username2: username2
-            })
-        });
-    }
-    catch (error) {
-        console.error(error);
-    }
-}
-
-// Input: chatRoomId (int or string), content (string), sender (string), recipient (string)
-// Output: None
-async function storeMessage(chatRoomId, content, sender) {
-    try {
-        const response = await fetch('/message/storeMessage', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                chatRoomId: chatRoomId,
-                content: content,
-                sender: sender,
-                timeStampMilliseconds: new Date().getTime().toString()
-            })
-        });
-    }
-    catch (error) {
-        console.error(error);
-    }
-}
-
-// Input: chatRoomId (int or string)
-// Output: Array of messages sorted from oldest to newest
-async function fetchMessages(chatRoomId) {
-    try {
-        const response = await fetch('/message/getMessages/' + chatRoomId, {
-            method: 'GET'
-        });
-        const text = await response.text();
-        return text ? JSON.parse(text) : [];
-    }
-    catch (error) {
-        console.error(error);
-        return [];
-    }
-}
 
 
 
 // Must call after logging in to connect user
-async function connect() {
-    await stompClient.activate();
+function connect() {
+    stompClient.activate();
 }
 
-async function disconnect() {
-    await stompClient.deactivate();
-    console.log("Disconnected");
+function disconnect() {
+    stompClient.deactivate();
 }
-
-
 
 // DO NOT CHANGE
 const stompClient = new StompJs.Client({
-    brokerURL: 'wss://chatboxdemo.onrender.com/websocket',
+    brokerURL: 'ws://localhost:8080/websocket',
 });
 
 stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
+    stompClient.subscribe('/topic/output', (message) => {
+        appendMessage(JSON.parse(message.body).content);
+    });
 };
 
 stompClient.onWebSocketError = (error) => {
