@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SLATE Chat Room</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+    <script src="/js/chatroomPage.js"></script>
     <style>
         body {
             background-color: #F0F0F0; 
@@ -31,38 +32,7 @@
         <!-- Messages will be displayed here -->
     </div>
     <input type="text" id="messageInput" class="form-control chat-input" placeholder="Type a message...">
-    <button onclick="sendMessage()" class="btn btn-primary mt-2">Send</button>
+    <button th:attr="onclick=|sendMessage('${account.uid}','${account.username}')|" class="btn btn-primary mt-2">Send</button>
 </div>
-
-<script>
-    var stompClient = null;
-
-    function connect() {
-        var socket = new SockJS('/websocket');
-        stompClient = Stomp.over(socket);
-        stompClient.connect({}, function (frame) {
-            console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/output/roomId', function (message) {
-                showMessage(JSON.parse(message.body).content);
-            });
-        });
-    }
-
-    function sendMessage() {
-        var messageContent = document.getElementById("messageInput").value;
-        if(messageContent) {
-            stompClient.send("/app/input/roomId", {}, JSON.stringify({'content': messageContent}));
-            document.getElementById("messageInput").value = '';
-        }
-    }
-
-    function showMessage(message) {
-        var messageElement = document.createElement('div');
-        messageElement.appendChild(document.createTextNode(message));
-        document.getElementById("chatWindow").appendChild(messageElement);
-    }
-
-    window.onload = connect;
-</script>
 </body>
 </html>

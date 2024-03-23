@@ -1,4 +1,4 @@
-package com.example.slatechatbox.account;
+package com.slate.slatechatbox.account;
 
 import java.util.List;
 import java.util.Map;
@@ -94,6 +94,13 @@ public String registerAccount(@RequestParam Map<String, String> newaccount, Http
     System.out.println("new account saved");
     response.setStatus(201);
     return "account/login";
+}
+
+@GetMapping("/chatroom")
+public String getChatroom(Model model, HttpServletResponse request, HttpSession session) {
+    Account account = (Account) session.getAttribute("session_account");
+    model.addAttribute("account", account);
+    return "account/chatroomPage";
 }
 
 }

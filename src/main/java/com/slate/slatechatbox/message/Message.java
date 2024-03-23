@@ -1,4 +1,4 @@
-package com.example.slatechatbox.message;
+package com.slate.slatechatbox.message;
 
 import jakarta.persistence.*;
 
@@ -9,18 +9,18 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int messageId;
-    private int chatRoomId;
-    private String content;
-    private String sender;
+    private int uid;
+    private String senderName;
     private String timeStampMilliseconds;
+    private String content;
 
     public Message() {}
 
-    public Message(int chatRoomId, String content, String sender, String timeStampMilliseconds) {
-        this.chatRoomId = chatRoomId;
+    public Message(int uid, String content, String timeStampMilliseconds, String senderName) {
+        this.uid = uid;
         this.content = content;
-        this.sender = sender;
         this.timeStampMilliseconds = timeStampMilliseconds;
+        this.senderName = senderName;
     }
 
     public int getMessageId() {
@@ -31,12 +31,12 @@ public class Message {
         this.messageId = messageId;
     }
 
-    public int getChatRoomId() {
-        return chatRoomId;
+    public int getUid() {
+        return uid;
     }
 
-    public void setChatRoomId(int chatRoomId) {
-        this.chatRoomId = chatRoomId;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public String getContent() {
@@ -47,20 +47,20 @@ public class Message {
         this.content = content;
     }
 
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
     public String getTimeStampMilliseconds() {
         return timeStampMilliseconds;
     }
 
     public void setTimeStampMilliseconds(String timeStampMilliseconds) {
         this.timeStampMilliseconds = timeStampMilliseconds;
-    }    
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
 
 }
