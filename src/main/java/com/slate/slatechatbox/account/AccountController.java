@@ -103,5 +103,4 @@ public String getChatroom(Model model, HttpServletResponse request, HttpSession 
     return "account/chatroomPage";
 }
 
-
 }
