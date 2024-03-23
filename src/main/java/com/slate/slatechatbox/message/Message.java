@@ -10,15 +10,17 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int messageId;
     private int uid;
+    private String senderName;
     private String timeStampMilliseconds;
     private String content;
 
     public Message() {}
 
-    public Message(int uid, String content, String timeStampMilliseconds) {
+    public Message(int uid, String content, String timeStampMilliseconds, String senderName) {
         this.uid = uid;
         this.content = content;
         this.timeStampMilliseconds = timeStampMilliseconds;
+        this.senderName = senderName;
     }
 
     public int getMessageId() {
@@ -51,6 +53,14 @@ public class Message {
 
     public void setTimeStampMilliseconds(String timeStampMilliseconds) {
         this.timeStampMilliseconds = timeStampMilliseconds;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
     }
 
 }

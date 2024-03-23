@@ -96,4 +96,12 @@ public String registerAccount(@RequestParam Map<String, String> newaccount, Http
     return "account/login";
 }
 
+@GetMapping("/chatroom")
+public String getChatroom(Model model, HttpServletResponse request, HttpSession session) {
+    Account account = (Account) session.getAttribute("session_account");
+    model.addAttribute("account", account);
+    return "account/chatroomPage";
+}
+
+
 }
