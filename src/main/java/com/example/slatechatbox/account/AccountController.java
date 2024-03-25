@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpHeaders;
+
+
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,8 +38,13 @@ public RedirectView process() {
     return new RedirectView("login");
 }
 
+
+
 @GetMapping("/login")
-public String getLogin(Model model, HttpServletResponse request, HttpSession session){
+public String getLogin(Model model, HttpServletResponse response, HttpSession session){
+    response.setHeader(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader(HttpHeaders.PRAGMA, "no-cache"); // HTTP 1.0
+    response.setDateHeader(HttpHeaders.EXPIRES, 0); // Proxies
     System.out.println("login page");
     Account account = (Account) session.getAttribute("session_account");
     if (account == null) {
@@ -43,12 +53,36 @@ public String getLogin(Model model, HttpServletResponse request, HttpSession ses
     }
     else {
         model.addAttribute("account", account);
-        return "account/home";
+        return "account/homepage";
     }
 }
 
+@GetMapping("/homepage")
+public String getHome(Model model, HttpServletResponse response, HttpSession session){
+    response.setHeader(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader(HttpHeaders.PRAGMA, "no-cache"); // HTTP 1.0
+    response.setDateHeader(HttpHeaders.EXPIRES, 0); // Proxies
+    System.out.println("home page");
+    Account account = (Account) session.getAttribute("session_account");
+    if (account == null) {
+        System.out.println("null account");
+        return "account/login";
+    }
+    else {
+        model.addAttribute("account", account);
+        return "account/homepage";
+    }
+}
+
+
+
+
+
 @PostMapping("/login")
-public String login(@RequestParam Map<String, String> formData, Model model, HttpServletRequest request, HttpSession session) {
+public String login(@RequestParam Map<String, String> formData, Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+    response.setHeader(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader(HttpHeaders.PRAGMA, "no-cache"); // HTTP 1.0
+    response.setDateHeader(HttpHeaders.EXPIRES, 0); // Proxies
     if (formData.get("username") == null || formData.get("password") == null) {
         return "account/login";
     }
@@ -63,7 +97,7 @@ public String login(@RequestParam Map<String, String> formData, Model model, Htt
         Account account = accounts.get(0);
         request.getSession().setAttribute("session_account", account);
         model.addAttribute("account", account);
-        return "account/home";
+        return "redirect:/homepage";
     }
     }
 
@@ -97,5 +131,8 @@ public String registerAccount(@RequestParam Map<String, String> newaccount, Http
     response.setStatus(201);
     return "account/login";
 }
+
+
+
 
 }
