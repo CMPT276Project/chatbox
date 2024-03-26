@@ -1,4 +1,4 @@
-package com.example.slatechatbox.account;
+package com.example.slate.slatechatbox.account;
 
 import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
@@ -53,11 +53,11 @@ public String getLogin(Model model, HttpServletResponse response, HttpSession se
     }
     else {
         model.addAttribute("account", account);
-        return "account/homepage";
+        return "account/home";
     }
 }
 
-@GetMapping("/homepage")
+@GetMapping("/home")
 public String getHome(Model model, HttpServletResponse response, HttpSession session){
     response.setHeader(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate"); // HTTP 1.1
     response.setHeader(HttpHeaders.PRAGMA, "no-cache"); // HTTP 1.0
@@ -70,7 +70,7 @@ public String getHome(Model model, HttpServletResponse response, HttpSession ses
     }
     else {
         model.addAttribute("account", account);
-        return "account/homepage";
+        return "account/home";
     }
 }
 
@@ -97,7 +97,7 @@ public String login(@RequestParam Map<String, String> formData, Model model, Htt
         Account account = accounts.get(0);
         request.getSession().setAttribute("session_account", account);
         model.addAttribute("account", account);
-        return "redirect:/homepage";
+        return "redirect:/home";
     }
     }
 
