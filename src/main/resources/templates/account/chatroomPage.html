@@ -10,6 +10,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
     <script src="/js/chatroomPage.js" defer></script>
     <style>
+        :root {
+            --lightshade: #eaebe9;
+            --lightaccent: #818582;
+            --maincolor: #83A37C;
+            --darkaccent: #92756A; 
+            --darkshade: #443f46;
+        }
+
         body {
             background-color: #443F46;
         }
@@ -73,6 +81,26 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+
+        #messageInput {
+            background-color: var(--lightaccent);
+            color: var(--lightshade);
+            border: var(--lightaccent);
+        }
+
+        .inputContainer {
+            display: flex;
+            max-width: 1110px;
+        }
+
+        ::placeholder {
+            color:var(--lightshade) !important;
+        }
+
+        .mt-2 {
+            margin-top: 0px !important;
+        }
+
     </style>
 </head>
 
@@ -96,9 +124,11 @@
         <div class="chat-container" id="chatWindow">
             <!-- Chat messages displayer -->
         </div>
-        <input type="text" id="messageInput" class="form-control" placeholder="Type a message...">
-        <button th:attr="onclick=|sendMessage('${account.uid}','${account.username}')|"
-            class="btn btn-custom mt-2">Send</button>
+        <div class="inputContainer">
+            <input type="text" id="messageInput" class="form-control" placeholder="Type a message...">
+            <button th:attr="onclick=|sendMessage('${account.uid}','${account.username}')|"
+                class="btn btn-custom mt-2">Send</button>
+        </div>
     </div>
 </body>
 
