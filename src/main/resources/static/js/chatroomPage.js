@@ -50,7 +50,7 @@ function disconnect() {
 }
 
 const stompClient = new StompJs.Client({
-    brokerURL: 'wss://slate-up5x.onrender.com/websocket',
+    brokerURL: 'wss://https://slate-qwm7.onrender.com/websocket',
 });
 
 stompClient.onConnect = (frame) => {
