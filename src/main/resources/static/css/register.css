@@ -25,7 +25,7 @@ html {
 #card {
     background-color: var(--lightshade);
     width: 400px;
-    height: 475px;
+    height: 535px;
     display: flex;
     align-items: center;
     flex-flow: column;
@@ -96,4 +96,10 @@ a {
 #login {
     box-sizing: content-box;
     margin: 15px;
+}
+
+.subtext {
+    font-size: 14px;
+    text-align: left;
+    margin-top: 5px;
 }

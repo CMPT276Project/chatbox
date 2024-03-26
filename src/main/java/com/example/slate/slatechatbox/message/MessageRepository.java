@@ -1,4 +1,4 @@
-package com.slate.slatechatbox.message;
+package com.example.slate.slatechatbox.message;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

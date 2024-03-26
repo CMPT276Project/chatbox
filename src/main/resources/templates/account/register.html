@@ -12,8 +12,15 @@
             <img id="logo" src="/images/slatelogo1.png" alt="Slate logo">
             <div id="card">
                 <div id="registertext">Create Account</div>
-                <div id="username"><input type="text" placeholder="Username" name="username" required /> </div>
-                <div id="password"><input type="password" placeholder="Password" name="password" required /> </div>
+                <div>
+                    <div id="username"><input type="text" placeholder="Username" name="username" pattern="\w{3,20}" required /> </div>
+                    <div class="subtext">Between 3-20 characters</div>
+                </div>
+                <div>
+                    <div id="password"><input type="password" placeholder="Password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  required /> </div>
+                    <div class="subtext">One uppercase, lowercase, number,</div>
+                    <div class="subtext">at least 8 characters</div>
+                </div>
                 <div class="container" id="sign-reg">
                     <input id="register" type="submit" value="Register">
                     <div id="login"><a href="/login">Use existing account</a></div>
