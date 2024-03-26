@@ -17,11 +17,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.example.slatechatbox.message.Message;
+import com.example.slatechatbox.message.MessageRepository;
+
 @Controller
 public class AccountController {
 
     @Autowired
     private AccountRepository accountRepo;
+
+    @Autowired
+    private MessageRepository messageRepository;
 
     @GetMapping("/")
     public RedirectView process() {
@@ -119,6 +125,15 @@ public class AccountController {
         Account account = (Account) session.getAttribute("session_account");
         model.addAttribute("account", account);
         return "account/chatroomPage";
+    }
+
+    @GetMapping("/history")
+    public String getHistory(Model model, HttpServletResponse request, HttpSession session) {
+        Account account = (Account) session.getAttribute("session_account");
+        List<Message> messages = messageRepository.findChatMessagesByUid(account.getUid());
+        model.addAttribute("messages",messages);
+        model.addAttribute("account", account);
+        return "account/history";
     }
 
 }

@@ -29,4 +29,10 @@ public class MessageController {
       return list;
   }
 
+  @ResponseBody
+  @GetMapping("/message/get/{uid}")
+  public List<Message> getMessageByUid(@PathVariable("uid") int uid) {
+      return messageRepository.findChatMessagesByUid(uid);
+  }
+
 }
