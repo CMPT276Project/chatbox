@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import java.util.*;
 import org.springframework.web.bind.annotation.*;
 
-
-
 @Controller
 public class MessageController {
 
@@ -25,8 +23,8 @@ public class MessageController {
   @ResponseBody
   @GetMapping("/message/getAll")
   public List<Message> getMessagesByChatRoomId() {
-      List<Message> list = messageRepository.findAllChatMessages();
-      return list;
+    List<Message> list = messageRepository.findAllChatMessages();
+    return list;
   }
 
 }
