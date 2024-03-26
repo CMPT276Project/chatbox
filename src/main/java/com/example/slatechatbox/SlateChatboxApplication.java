@@ -1,4 +1,4 @@
-package com.example.slate.slatechatbox;
+package com.example.slatechatbox;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
