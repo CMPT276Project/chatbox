@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History</title>
+    <style>
+        body {
+            background-color: #443f46;
+            justify-content: center;
+            align-items: center;
+        }
+        .chatArea {
+            padding-left: 20%;
+            padding-right: 20%;
+        }
+        .secondContainer {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #eaebe9;
+            border-radius: 5px;
+        }
+        .header {
+            border-radius: 8px;
+            text-align: center;
+            /* max-width: 900px; */
+        }
+        .chatMessages {
+            text-align: left;
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+        .message {
+            padding-top: 10px;
+            padding-bottom: 12px;
+            border-radius: 8px;
+            border: 1px solid #443f46;
+            color: black; 
+            font-size: large;
+        }
+        .extraSpace {
+            padding-bottom: 5px;
+        }
+        .homeLink {
+            position: fixed;
+            bottom: 8px;
+            left: 16px;
+            background-color: #83A37C;
+            color: white;
+            text-decoration: none;
+            padding: 13px;
+            border-radius: 8px;
+        }
+        .SpaceAtBottom {
+            padding-bottom: 0px;
+        }
+        .ChatLink {
+            /* position: sticky; */
+            position: fixed;
+            bottom: 8px;
+            right: 16px;
+            background-color:#83A37C;
+            color: white;
+            text-decoration: none;
+            padding: 13px;
+            border-radius: 8px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class = "chatArea">
+        <div class = "secondContainer">
+            <div class = "header">
+                <h1 class = "text">Chat history</h1>
+            </div>
+            <div class = "chatMessages">
+                <div th:each="message:${messages}">
+                    <div class = "message">
+                        <span style = "color:darkblue" th:text="${message.senderName} + ': '"> </span>
+                        <span th:text="${message.content}"></span>
+                    </div>
+                    <div class = "extraSpace"></div>
+                </div>
+                <div class = "message" style="text-align: center; color:red">END OF CHAT</div>
+            </div>
+        </div>
+        
+    </div>
+    <div class = "SpaceAtBottom"></div>
+    <a class = "homeLink" href="/home">Home</a>
+    <a class = "ChatLink" href="/chatroom">Chat Room</a>
+    
+</body>
+</html>
