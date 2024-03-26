@@ -2,6 +2,11 @@ window.onload = function () {
     connect();
 }
 
+function scrollToBottom() {
+    const chatContainer = document.getElementById('chatWindow');
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
 function sendMessage(uid, senderName) {
     var messageContent = document.getElementById("messageInput").value;
     if (messageContent) {
@@ -23,7 +28,9 @@ function sendMessage(uid, senderName) {
 function showMessage(message) {
     var messageElement = document.createElement('div');
     messageElement.appendChild(document.createTextNode(message.senderName + ": " + message.content));
+    messageElement.classList.add("chat-message");
     document.getElementById("chatWindow").appendChild(messageElement);
+    scrollToBottom();
 }
 
 // Get array of messages from server sorted by oldest to newest
