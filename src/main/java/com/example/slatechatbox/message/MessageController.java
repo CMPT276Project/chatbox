@@ -1,4 +1,4 @@
-package com.example.slate.slatechatbox.message;
+package com.example.slatechatbox.message;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -24,7 +24,7 @@ public class MessageController {
 
   @ResponseBody
   @GetMapping("/message/getAll")
-  public List<Message> getMessagesByChatRoomId() {
+  public List<Message> getAllMessages() {
       List<Message> list = messageRepository.findAllChatMessages();
       return list;
   }
