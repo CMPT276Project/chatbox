@@ -24,12 +24,19 @@
         .chat-input {
             width: 100%;
         }
+        .slate-logo {
+            display: Black;
+            margin: 0 auto;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 <div class="container mt-5">
+    
+    <img src="path/to/slate-logo.png" alt="SLATE Logo" class="slate-logo">
     <div class="chat-window" id="chatWindow">
-        <!-- Messages will be displayed here -->
+        <!-- All messages to be displayed here -->
     </div>
     <input type="text" id="messageInput" class="form-control chat-input" placeholder="Type a message...">
     <button th:attr="onclick=|sendMessage('${account.uid}','${account.username}')|" class="btn btn-primary mt-2">Send</button>
