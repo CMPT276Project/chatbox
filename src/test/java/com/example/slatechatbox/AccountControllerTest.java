@@ -3,9 +3,12 @@ package com.example.slatechatbox;
 import com.example.slatechatbox.account.Account;
 import com.example.slatechatbox.account.AccountController;
 import com.example.slatechatbox.account.AccountRepository;
+import com.example.slatechatbox.message.MessageRepository;
+import com.example.slatechatbox.message.Message;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,9 @@ public class AccountControllerTest {
     @MockBean
     private AccountRepository accountRepository;
 
+    @MockBean
+    private MessageRepository messageRepository;
+
     @Test
     public void testProcess() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/"))
@@ -49,6 +55,7 @@ public class AccountControllerTest {
         Account account = new Account();
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("session_account", account);
+
         mockMvc.perform(get("/login").session(session))
                 .andExpect(view().name("account/home"))
                 .andExpect(model().attribute("account", account));
@@ -65,6 +72,7 @@ public class AccountControllerTest {
         Account account = new Account();
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("session_account", account);
+
         mockMvc.perform(get("/home").session(session))
                 .andExpect(view().name("account/home"))
                 .andExpect(model().attribute("account", account));
@@ -94,6 +102,7 @@ public class AccountControllerTest {
     public void testLoginWithInvalidCredentials() throws Exception {
         when(accountRepository.findByUsernameAndPassword("test", "test"))
                 .thenReturn(Collections.emptyList());
+                
         mockMvc.perform(post("/login")
                 .param("username", "test")
                 .param("password", "test"))
@@ -151,6 +160,7 @@ public class AccountControllerTest {
     @Test
     public void testRegisterAccountExistingUsername() throws Exception {
         when(accountRepository.findByUsername("test")).thenReturn(Arrays.asList(new Account()));
+
         mockMvc.perform(post("/account/register")
                 .param("username", "test"))
                 .andExpect(view().name("account/register"));
@@ -159,6 +169,7 @@ public class AccountControllerTest {
     @Test
     public void testRegisterAccountValidCredentials() throws Exception {
         when(accountRepository.findByUsername("test")).thenReturn(Collections.emptyList());
+
         mockMvc.perform(post("/account/register")
                 .param("username", "test")
                 .param("password", "test"))
@@ -170,9 +181,30 @@ public class AccountControllerTest {
         Account account = new Account("username", "password");
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("session_account", account);
+
         mockMvc.perform(get("/chatroom").session(session))
                 .andExpect(view().name("account/chatroomPage"))
                 .andExpect(model().attribute("account", account));
+    }
+
+    @Test
+    public void testGetHistory() throws Exception {
+        List<Message> messages = Arrays.asList(
+                new Message(1, "Hello", "123456789", "Alice"),
+                new Message(1, "World", "123456790", "Alice"),
+                new Message(2, "Hi", "123456789", "Bob"));
+        when(messageRepository.findChatMessagesByUid(1)).thenReturn(messages);
+        Account account = new Account();
+        account.setUid(1);
+        account.setUsername("Alice");
+        account.setPassword("password");
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("session_account", account);
+        
+        mockMvc.perform(get("/history").session(session))
+                .andExpect(view().name("account/history"))
+                .andExpect(model().attribute("account", account))
+                .andExpect(model().attribute("messages", messages));
     }
 
 }

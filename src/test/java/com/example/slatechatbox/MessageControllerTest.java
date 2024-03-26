@@ -32,19 +32,26 @@ public class MessageControllerTest {
 
     @Test
     public void testGetAllMessages() throws Exception {
-        // Given
         List<Message> messages = Arrays.asList(
                 new Message(1, "Hello", "123456789", "Alice"),
                 new Message(2, "Hi", "123456789", "Bob"));
-
-        // When
+        String messagesString = objectMapper.writeValueAsString(messages);
         when(messageController.getAllMessages()).thenReturn(messages);
 
-        // Convert messages to JSON string
-        String messagesString = objectMapper.writeValueAsString(messages);
-
-        // Then
         mockMvc.perform(get("/message/getAll")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(messagesString));
+    }
+
+    @Test
+    public void testGetChatMessagesByUid() throws Exception {
+        List<Message> messages = Arrays.asList(
+                new Message(1, "Hello", "123456789", "Alice"),
+                new Message(1, "Hi", "123456789", "Alice"));
+        String messagesString = objectMapper.writeValueAsString(messages);      
+        when(messageController.getMessageByUid(1)).thenReturn(messages);
+        
+        mockMvc.perform(get("/message/get/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(messagesString));
     }

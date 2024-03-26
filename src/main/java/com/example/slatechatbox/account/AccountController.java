@@ -130,7 +130,7 @@ public class AccountController {
     @GetMapping("/history")
     public String getHistory(Model model, HttpServletResponse request, HttpSession session) {
         Account account = (Account) session.getAttribute("session_account");
-        List<Message> messages = messageRepository.findAllChatMessages();
+        List<Message> messages = messageRepository.findChatMessagesByUid(account.getUid());
         model.addAttribute("messages",messages);
         model.addAttribute("account", account);
         return "account/history";
