@@ -22,7 +22,9 @@ function sendMessage(uid, senderName) {
 // Message is a JSON object with fields: uid, senderName, content, timeStampMilliseconds
 function showMessage(message) {
     var messageElement = document.createElement('div');
-    messageElement.appendChild(document.createTextNode(message.senderName + ": " + message.content));
+    const date = new Date(parseInt(message.timeStampMilliseconds));
+    const timeString = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    messageElement.appendChild(document.createTextNode(timeString + ' ' + message.senderName + ': ' + message.content));
     document.getElementById("chatWindow").appendChild(messageElement);
 }
 
