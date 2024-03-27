@@ -3,13 +3,13 @@
 
 <head>
     <title>Registration</title>
-    <link rel="stylesheet" href="../../static/css/register.css">
+    <link rel="stylesheet" href="/css/register.css">
 </head>
 
 <body>
     <form action="/account/register" method="POST">
         <div class="container">
-            <img id="logo" src="../../static/images/slatelogo1.png" alt="Slate logo">
+            <img id="logo" src="/images/slatelogo1.png" alt="Slate logo">
             <div id="card">
                 <div id="registertext">Create Account</div>
                 <div th:if="${error}" class="error-message">
