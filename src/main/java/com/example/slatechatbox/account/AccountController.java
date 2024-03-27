@@ -103,22 +103,24 @@ public class AccountController {
     }
 
     @PostMapping("/account/register")
-    public String registerAccount(@RequestParam Map<String, String> newaccount, HttpServletResponse response) {
-        if (newaccount.get("username") == null || newaccount.get("password") == null) {
-            response.setStatus(400);
-            return "account/register";
-        }
-        if (accountRepo.findByUsername(newaccount.get("username")).size() > 0) {
-            response.setStatus(409);
-            return "account/register";
-        }
-        String username = newaccount.get("username");
-        String password = newaccount.get("password");
-        accountRepo.save(new Account(username, password));
-        System.out.println("new account saved");
-        response.setStatus(201);
-        return "account/login";
+public String registerAccount(@RequestParam Map<String, String> newaccount, Model model, HttpServletResponse response) {
+    if (newaccount.get("username") == null || newaccount.get("password") == null) {
+        response.setStatus(400);
+        return "account/register";
     }
+    if (accountRepo.findByUsername(newaccount.get("username")).size() > 0) {
+        response.setStatus(409);
+        model.addAttribute("error", "Username is already in use.");
+        return "account/register";
+    }
+    String username = newaccount.get("username");
+    String password = newaccount.get("password");
+    accountRepo.save(new Account(username,password));
+    System.out.println("new account saved");
+    response.setStatus(201);
+    model.addAttribute("success", "Registration successful!");
+    return "account/register";
+}
 
     @GetMapping("/chatroom")
     public String getChatroom(Model model, HttpServletResponse request, HttpSession session) {
