@@ -14,7 +14,7 @@
             --lightshade: #eaebe9;
             --lightaccent: #818582;
             --maincolor: #83A37C;
-            --darkaccent: #92756A; 
+            --darkaccent: #92756A;
             --darkshade: #443f46;
         }
 
@@ -95,21 +95,20 @@
         }
 
         ::placeholder {
-            color:var(--lightshade) !important;
+            color: var(--lightshade) !important;
         }
 
         .mt-2 {
             margin-top: 0px !important;
         }
-
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container">
-            <a class="navbar-brand" href="home.html">
-                <img id="logo" src="../../static/images/slatelogo1.png" alt="Slate logo">
+            <a class="navbar-brand" href="/home">
+                <img id="logo" src="/images/slatelogo1.png" alt="Slate logo">
             </a>
             <div class="navbar-collapse">
                 <!-- Navbar code and integration -->
@@ -126,9 +125,19 @@
             <!-- Chat messages displayer -->
         </div>
         <div class="inputContainer">
+            <input type="file" id="fileInput" class="form-control" style="display:none;">
+            <button class="btn btn-custom mt-2" onclick="document.getElementById('fileInput').click()">Upload</button>
+
             <input type="text" id="messageInput" class="form-control" placeholder="Type a message...">
-            <button th:attr="onclick=|sendMessage('${account.uid}','${account.username}')|"
+            <button th:attr="onclick=|handleSend('${account.uid}','${account.username}')|"
                 class="btn btn-custom mt-2">Send</button>
+        </div>
+        <!-- Display uploaded file -->
+        <div id="display-upload-container" class="w-100" style="display: none;">
+            <div class="d-flex">
+                <span class="text-white" id="fileName"></span>
+                <a onClick="removeFile()" class="text-danger mx-3">remove</a>
+            </div>
         </div>
     </div>
 </body>

@@ -43,7 +43,56 @@ async function getMessages() {
     return await result.json();
 }
 
+// Image uploading
 
+const displayUploadContainer = document.getElementById('display-upload-container');
+document.getElementById('fileInput').addEventListener('change', function() {
+    var fileInput = document.getElementById('fileInput');
+    var fileNameDisplay = document.getElementById('fileName');
+
+    if (fileInput.files.length > 0) {
+        var fileName = fileInput.files[0].name;
+        fileNameDisplay.textContent = fileName;
+        displayUploadContainer.style.display = 'block';
+    }
+});
+
+function removeFile() {
+    var fileInput = document.getElementById('fileInput');
+    var fileNameDisplay = document.getElementById('fileName');
+
+    fileInput.value = '';
+    fileNameDisplay.textContent = '';
+    displayUploadContainer.style.display = 'none';
+}
+
+// Handle send
+
+async function handleSend(uid, senderName) {
+    // Check if file is being uploaded
+    let fileInput = document.getElementById('fileInput');
+    if (fileInput.files.length > 0) {
+        let file = fileInput.files[0];
+        let formData = new FormData();
+        formData.append('file', file);
+        formData.append('uid', uid);
+        formData.append('senderName', senderName);
+        formData.append('timeStampMilliseconds', new Date().getTime().toString());
+        const res = await fetch('/upload', {
+            method: 'POST',
+            enctype: 'multipart/form-data',
+            body: formData
+        });
+        if (res.ok) {
+            console.log('File uploaded');
+            removeFile();
+        } else {
+            console.error('Error uploading file');
+        }
+    }
+    // Always send text message
+    sendMessage(uid, senderName);
+}
 
 
 //  Websocket connection
