@@ -16,7 +16,7 @@ public class MessageController {
   private MessageRepository messageRepository;
 
   @MessageMapping("/input")
-  @SendTo("/topic/output")
+  @SendTo("/topic/output/message")
   public Message message(Message message) throws Exception {
     messageRepository.save(message);
     return message;
