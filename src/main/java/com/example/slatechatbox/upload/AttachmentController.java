@@ -27,21 +27,14 @@ public class AttachmentController {
 
     @PostMapping("/upload")
     public void uploadFile(@RequestParam("file") MultipartFile file,
-            @RequestParam("uid") String uid, @RequestParam("message") String message,
+            @RequestParam("uid") String uid, @RequestParam("content") String content,
             @RequestParam("senderName") String senderName,
             @RequestParam("timeStampMilliseconds") String timeStampMilliseconds) throws Exception {
         Attachment attachment = attachmentService.saveAttachment(file);
         Integer fileId = Integer.valueOf(attachment.getId());
-        String downloadURL = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/download/")
-                .path(fileId.toString())
-                .toUriString();
-        Message messageObj = new Message(Integer.parseInt(uid), senderName, timeStampMilliseconds, message, fileId, attachment.getFileName());
+        Message messageObj = new Message(Integer.parseInt(uid), senderName, timeStampMilliseconds, content, fileId, attachment.getFileName());
         messageRepository.save(messageObj);
-
-        ResponseData fileData = new ResponseData(attachment.getFileName(), downloadURL, attachment.getFileType(),
-                attachment.getData().length, messageObj);
-        template.convertAndSend("/topic/output/file", fileData);
+        template.convertAndSend("/topic/output", messageObj);
     }
 
     @GetMapping("/download/{id}")

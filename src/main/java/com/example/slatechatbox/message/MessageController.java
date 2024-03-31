@@ -16,11 +16,11 @@ public class MessageController {
   private MessageRepository messageRepository;
 
   @MessageMapping("/input")
-  @SendTo("/topic/output/message")
+  @SendTo("/topic/output")
   public Message message(Message message) throws Exception {
     Message newMessage = new Message(message.getUid(), message.getSenderName(), message.getTimeStampMilliseconds(), message.getContent(), -1, "");
     messageRepository.save(newMessage);
-    return message;
+    return newMessage;
   }
 
   @ResponseBody
