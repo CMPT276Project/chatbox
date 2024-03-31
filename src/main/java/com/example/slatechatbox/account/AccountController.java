@@ -133,7 +133,7 @@ public String registerAccount(@RequestParam Map<String, String> newaccount, Mode
     public String getHistory(Model model, HttpServletResponse request, HttpSession session) {
         Account account = (Account) session.getAttribute("session_account");
         List<Message> messages = messageRepository.findAllChatMessages();
-        model.addAttribute("messages",messages);
+        model.addAttribute("messages", messages);
         model.addAttribute("account", account);
         return "account/history";
     }

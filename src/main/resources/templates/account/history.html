@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>History</title>
+    <script src="/js/history.js" defer></script>
     <style>
         body {
             background-color: #443f46;
@@ -32,8 +33,7 @@
             padding-right: 5%;
         }
         .message {
-            padding-top: 10px;
-            padding-bottom: 12px;
+            padding: 10px 10px;
             border-radius: 8px;
             border: 1px solid #443f46;
             color: black; 
@@ -80,6 +80,9 @@
                     <div class = "message">
                         <span style = "color:darkblue" th:text="${message.senderName} + ': '"> </span>
                         <span th:text="${message.content}"></span>
+                        <div th:if="${message.fileId != -1}" style="margin-top: 5px">
+                            <a th:href="'/download/' + ${message.fileId}" th:text="${message.fileName}" style="color:blue"></a>
+                        </div>
                     </div>
                     <div class = "extraSpace"></div>
                 </div>

@@ -173,7 +173,7 @@ public class AccountControllerTest {
         mockMvc.perform(post("/account/register")
                 .param("username", "test")
                 .param("password", "test"))
-                .andExpect(view().name("account/login"));
+                .andExpect(view().name("account/register"));
     }
 
     @Test
@@ -189,11 +189,11 @@ public class AccountControllerTest {
 
     @Test
     public void testGetHistory() throws Exception {
-        List<Message> messages = Arrays.asList(
-                new Message(1, "Hello", "123456789", "Alice"),
-                new Message(1, "World", "123456790", "Alice"),
-                new Message(2, "Hi", "123456789", "Bob"));
-        when(messageRepository.findChatMessagesByUid(1)).thenReturn(messages);
+        Message message1 = new Message(1, "Hello", "123456789", "Alice", -1, "");
+        Message message2 = new Message(1, "World", "123456790", "Alice", -1, "");
+        Message message3 = new Message(2, "Hi", "123456789", "Bob", -1, "");
+        List<Message> messages = Arrays.asList(message1, message2, message3);
+        when(messageRepository.findAllChatMessages()).thenReturn(messages);
         Account account = new Account();
         account.setUid(1);
         account.setUsername("Alice");
