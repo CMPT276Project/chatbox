@@ -15,7 +15,6 @@ async function handleSend(uid, senderName) {
         formData.append('uid', uid);
         formData.append('senderName', senderName);
         formData.append('timeStampMilliseconds', new Date().getTime().toString());
-        console.log(formData);
         const res = await fetch('/upload', {
             method: 'POST',
             enctype: 'multipart/form-data',
@@ -62,11 +61,9 @@ function showMessage(message) {
 }
 
 // Display file in chat window
-// Content is a JSON object with fields: uid, message, senderName, filename, timeStampMilliseconds
 function showFile(content) {
-    console.log(content);
-    const fileUriString = content.filename;
-    const fileName = fileUriString.substring(fileUriString.lastIndexOf('/') + 1);
+    const fileUriString = content.fileDownloadUrl;
+    const fileName = content.fileName;
     const svgString = `<svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;" width="16" height="16"fill="black" class="bi bi-download" viewBox="0 0 16 16">
                         <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
                         <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
@@ -79,11 +76,12 @@ function showFile(content) {
     fileElement.appendChild(uri);
     fileElement.innerHTML += svgString;
     const message = document.createElement('p');
-    message.innerHTML = content.senderName + ": " + content.message;
+    message.innerHTML = content.message.senderName + ": " + content.message.content;
     div.appendChild(message);
     div.appendChild(fileElement);
     div.classList.add("chat-message");
     document.getElementById("chatWindow").appendChild(div);
+    document.getElementById("messageInput").value = '';
     scrollToBottom();
 }
 
