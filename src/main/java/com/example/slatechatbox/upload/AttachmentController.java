@@ -1,7 +1,6 @@
 package com.example.slatechatbox.upload;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jersey.JerseyProperties.Servlet;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -16,7 +15,7 @@ import com.example.slatechatbox.message.MessageRepository;
 
 @RestController
 public class AttachmentController {
-    
+
     @Autowired
     private AttachmentService attachmentService;
 
@@ -24,33 +23,27 @@ public class AttachmentController {
     private MessageRepository messageRepository;
 
     @Autowired
-	private SimpMessagingTemplate template;
-
+    private SimpMessagingTemplate template;
 
     @PostMapping("/upload")
     public void uploadFile(@RequestParam("file") MultipartFile file,
-			@RequestParam("uid") String uid, @RequestParam("message") String message,
-			@RequestParam("senderName") String senderName,
-			@RequestParam("timeStampMilliseconds") String timeStampMilliseconds) throws Exception {
-        Attachment attachment = null;
-        String downloadURL = "";
-        attachment = attachmentService.saveAttachment(file);
-        downloadURL = ServletUriComponentsBuilder.fromCurrentContextPath()
+            @RequestParam("uid") String uid, @RequestParam("message") String message,
+            @RequestParam("senderName") String senderName,
+            @RequestParam("timeStampMilliseconds") String timeStampMilliseconds) throws Exception {
+        Attachment attachment = attachmentService.saveAttachment(file);
+        Integer fileId = Integer.valueOf(attachment.getId());
+        String downloadURL = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/download/")
-                .path(Integer.valueOf(attachment.getId()).toString())
+                .path(fileId.toString())
                 .toUriString();
+        Message messageObj = new Message(Integer.parseInt(uid), senderName, timeStampMilliseconds, message, fileId, attachment.getFileName());
+        messageRepository.save(messageObj);
 
-        Message messageObj = new Message(Integer.parseInt(uid), message, timeStampMilliseconds, senderName);
-        ResponseData fileData = new ResponseData(attachment.getFileName(), downloadURL, attachment.getFileType(), attachment.getData().length, messageObj);
-        sendFile(fileData, message, uid, senderName, timeStampMilliseconds);
+        ResponseData fileData = new ResponseData(attachment.getFileName(), downloadURL, attachment.getFileType(),
+                attachment.getData().length, messageObj);
+        template.convertAndSend("/topic/output/file", fileData);
     }
 
-    public void sendFile(ResponseData data, String message, String uid, String senderName, String timeStampMilliseconds) {
-        messageRepository.save(new Message(Integer.parseInt(uid), message, timeStampMilliseconds, senderName));
-        template.convertAndSend("/topic/output/file", data);
-    }
-
-    
     @GetMapping("/download/{id}")
     public ResponseEntity<Resource> downloadFile(@PathVariable int id) throws Exception {
         Attachment attachment = null;

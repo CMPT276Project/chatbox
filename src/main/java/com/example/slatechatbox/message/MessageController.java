@@ -18,7 +18,8 @@ public class MessageController {
   @MessageMapping("/input")
   @SendTo("/topic/output/message")
   public Message message(Message message) throws Exception {
-    messageRepository.save(message);
+    Message newMessage = new Message(message.getUid(), message.getSenderName(), message.getTimeStampMilliseconds(), message.getContent(), -1, "");
+    messageRepository.save(newMessage);
     return message;
   }
 

@@ -33,8 +33,8 @@ public class MessageControllerTest {
     @Test
     public void testGetAllMessages() throws Exception {
         List<Message> messages = Arrays.asList(
-                new Message(1, "Hello", "123456789", "Alice"),
-                new Message(2, "Hi", "123456789", "Bob"));
+                new Message(1, "Hello", "123456789", "Alice", -1, ""),
+                new Message(2, "Hi", "123456789", "Bob", -1, ""));
         String messagesString = objectMapper.writeValueAsString(messages);
         when(messageController.getAllMessages()).thenReturn(messages);
 
@@ -46,8 +46,8 @@ public class MessageControllerTest {
     @Test
     public void testGetChatMessagesByUid() throws Exception {
         List<Message> messages = Arrays.asList(
-                new Message(1, "Hello", "123456789", "Alice"),
-                new Message(1, "Hi", "123456789", "Alice"));
+                new Message(1, "Hello", "123456789", "Alice", -1, ""),
+                new Message(1, "Hi", "123456789", "Alice", -1, ""));
         String messagesString = objectMapper.writeValueAsString(messages);      
         when(messageController.getMessageByUid(1)).thenReturn(messages);
         
