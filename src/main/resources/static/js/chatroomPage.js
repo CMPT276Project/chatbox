@@ -10,6 +10,9 @@ window.onload = function () {
 // Handle message send and/or file upload
 
 async function handleSend(uid, senderName) {
+    // End typing indicator
+    clearInterval(typingTimeout);
+    stopTyping(senderName);
     // Check if file is being uploaded
     let fileInput = document.getElementById('fileInput');
     if (fileInput.files.length === 0) {
@@ -59,7 +62,7 @@ function sendMessage(uid, senderName) {
 
 function showMessage(content) {
     const message = document.createElement('span');
-    message.innerHTML = content.senderName + ": " + content.content;
+    message.textContent = content.senderName + ": " + content.content;
     const div = document.createElement('div');
     div.classList.add('chat-message');
     div.appendChild(message);
@@ -79,7 +82,7 @@ function showMessage(content) {
         fileElement.classList.add('d-flex', 'align-items-center', 'mt-3')
         div.appendChild(fileElement);
     }
-    document.getElementById("chatWindow").appendChild(div);
+    document.getElementById("chatMessages").appendChild(div);
     document.getElementById("messageInput").value = '';
     scrollToBottom();
 }
@@ -109,6 +112,39 @@ function removeFile() {
 }
 
 
+// Typing indicator
+let typingTimeout;
+
+function startTyping(username) {
+    clearTimeout(typingTimeout);
+    stompClient.publish({
+        destination: "/app/typing",
+        body: JSON.stringify({'username': username})
+    });
+    typingTimeout = setTimeout(() => {
+        stopTyping(username);
+    }, 4000);
+};
+
+function stopTyping(username) {
+    stompClient.publish({
+        destination: "/app/stopTyping",
+        body: JSON.stringify({'username': username})
+    });
+}
+
+function showTypingIndicator(userList) {
+    if (userList.length > 0) {
+        document.getElementById('typingIndicator').textContent = userList.join(', ') + ' is typing...';
+        document.getElementById('typingIndicator').style.display = 'block';
+    } else {
+        document.getElementById('typingIndicator').textContent = '';
+        document.getElementById('typingIndicator').style.display = 'none';
+    }
+    scrollToBottom();
+}
+
+
 // Scroll to bottom of chat window
 
 function scrollToBottom() {
@@ -134,6 +170,9 @@ const stompClient = new StompJs.Client({
 stompClient.onConnect = (frame) => {
     stompClient.subscribe('/topic/output', (message) => {
         showMessage(JSON.parse(message.body));
+    });
+    stompClient.subscribe('/topic/typing', function (data) {
+        showTypingIndicator(JSON.parse(data.body));
     });
 };
 
