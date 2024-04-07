@@ -106,6 +106,10 @@
             display: none;
             padding-left: 15px;
         }
+
+        #arrowIcon {
+            margin-top: 15px;
+        }
     </style>
 </head>
 
@@ -122,10 +126,6 @@
     </nav>
 
     <div class="container">
-        <div class="language-toggle">
-            <button class="btn btn-custom">English 🇬🇧</button>
-            <button class="btn btn-custom">Other Language 🌐</button>
-        </div>
         <div class="chat-container" id="chatWindow">
             <!-- Chat messages displayer -->
             <div id="chatMessages"></div>
@@ -140,6 +140,11 @@
             </form>
             <button th:attr="onclick=|handleSend('${account.uid}','${account.username}')|" class="btn btn-custom mt-2"
                 id="sendButton">Send</button>
+        </div>
+        <div class="language-toggle">
+            <button class="btn btn-custom">English 🇬🇧</button>
+            <img id="arrowIcon" src="../../static/images/ArrowIcon.png" width="40px">
+            <button class="btn btn-custom">Other Language 🌐</button>
         </div>
         <!-- Display uploaded file -->
         <div id="display-upload-container" class="w-100" style="display: none;">
