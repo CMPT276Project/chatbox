@@ -1,5 +1,7 @@
 package com.example.slatechatbox.upload;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +27,12 @@ public class AttachmentController {
     private SimpMessagingTemplate template;
 
     @PostMapping("/upload")
-    public void uploadFile(@RequestParam("file") MultipartFile file,
-            @RequestParam("uid") String uid, @RequestParam("content") String content,
-            @RequestParam("senderName") String senderName,
-            @RequestParam("timeStampMilliseconds") String timeStampMilliseconds) throws Exception {
+    public void uploadFile(@RequestBody Map<String, String> body, @RequestParam("file") MultipartFile file) throws Exception {
         Attachment attachment = attachmentService.saveAttachment(file);
         Integer fileId = Integer.valueOf(attachment.getId());
-        Message messageObj = new Message(Integer.parseInt(uid), senderName, timeStampMilliseconds, content, fileId, attachment.getFileName());
+        Message messageObj = new Message(
+            Integer.parseInt(body.get("uid")), body.get("senderName"), 
+            body.get("timeStampMilliseconds"), body.get("content"), fileId, attachment.getFileName());
         messageRepository.save(messageObj);
         template.convertAndSend("/topic/output", messageObj);
     }
