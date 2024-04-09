@@ -105,22 +105,23 @@
             position: relative; 
         }
     
-    .home-button-container {
-        position: absolute; 
-        bottom: 0; 
-        left: 0; 
-        margin: 0; 
-        z-index: 1000; 
-}
-
-    .home-button-container a {
-        background-color: #83A37C;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        text-decoration: none;
-        display: block; 
-}
+        .home-button-container {
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            z-index: 1000;
+        }
+        
+        .home-button-container a {
+            background-color: #83A37C;
+            color: white;
+            padding: 10px 20px; 
+            border-radius: 5px;
+            text-decoration: none;
+            display: block;
+            font-size: calc(10px + 1vw); 
+        }
+        
 
     </style>
 </head>
