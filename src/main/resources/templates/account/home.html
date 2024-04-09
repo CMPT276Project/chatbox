@@ -117,8 +117,8 @@
     <button class="btn btn-chat-room fixed-bottom-right">Chat Room</button>
 </form>
 
-<form action="/changename" method="GET">
-	<input class="input input-change-name centered-text-box" type="text" name="name">
+<form action="/changename" method="POST">
+	<input class="input input-change-name centered-text-box" type="text" name="name" value="${account.name}" required> 
     <button class="btn btn-change-name centered-btn">Change Display Name</button>
 </form>
 
