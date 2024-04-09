@@ -6,41 +6,39 @@ window.onload = function () {
     });
 }
 
-    // Language objects for dropdown menu
-    // TO BE REFACTORED
+// Language objects for dropdown menu
 
-    const enObj = {
-        fullName: 'English',
-        countryCode: 'EN',
-        flagEmoji: '🇬🇧',
-    }
-    
-    const esObj = {
-        fullName: 'Spanish',
-        countryCode: 'ES',
-        flagEmoji: '🇪🇸',
-    }
-    
-    const frObj = {
-        fullName: 'French',
-        countryCode: 'FR',
-        flagEmoji: '🇫🇷',
-    }
-    
-    const itObj = {
-        fullName: 'Italian',
-        countryCode: 'IT',
-        flagEmoji: '🇮🇹',
-    }
+const enObj = {
+    fullName: 'English',
+    countryCode: 'EN',
+    flagEmoji: '🇬🇧',
+}
 
+const esObj = {
+    fullName: 'Spanish',
+    countryCode: 'ES',
+    flagEmoji: '🇪🇸',
+}
 
+const frObj = {
+    fullName: 'French',
+    countryCode: 'FR',
+    flagEmoji: '🇫🇷',
+}
 
+const itObj = {
+    fullName: 'Italian',
+    countryCode: 'IT',
+    flagEmoji: '🇮🇹',
+}
 
+const languages = [enObj, esObj, frObj, itObj];
 
 function initializeDropdownMenu(){
 
-    const languages = [enObj, esObj, frObj, itObj];
+    // Allows the loop to differentiate between source language button and target language button
     let targetFlag = 0;
+
     const dropdownMenus = document.querySelectorAll(".dropdownMenu");
     dropdownMenus.forEach(() => {
         for (const language of languages) {
@@ -53,7 +51,6 @@ function initializeDropdownMenu(){
             switch(targetFlag){
                 case 0:
                     newListElement.addEventListener('click', () => updateSourceLanguage(languageObject))
-                    console.log("POG")
                     break;
                 case 1:
                     newListElement.addEventListener('click', () => updateTargetLanguage(languageObject))
@@ -66,6 +63,7 @@ function initializeDropdownMenu(){
     })
 }
 
+// Always runs on page load
 initializeDropdownMenu();
 
 function updateSourceLanguage(languageObj){
