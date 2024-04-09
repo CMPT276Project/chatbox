@@ -8,7 +8,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
-    <script src="/js/chatroomPage.js" defer></script>
+    <script src="../../static/js/chatroomPage.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"> defer</script>
     <style>
         :root {
@@ -110,6 +110,47 @@
         #arrowIcon {
             margin-top: 15px;
         }
+
+        .secondButton {
+            margin-right: 0px !important;
+        }
+
+        .dropdownContainer {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdownMenu {
+            display: none;
+            position: absolute;
+            background-color: var(--lightshade);
+            min-width: 140px;
+            min-height: 100px;
+            z-index: 1;
+            border-radius: 8px;
+            filter: drop-shadow(rgb(0,0,0,0.75) 0.3rem 0.3rem 3px);
+            padding: 10px 0px 10px 0px;
+        }
+
+        .dropdownContainer:hover .dropdownMenu {
+            display: block;
+        }
+
+        ul {
+            list-style-type: none;
+            text-align: center;
+            padding: 0;
+        }
+
+        li{
+            
+            border-radius: 4px;
+        }
+
+        li:hover {
+            background-color: var(--maincolor);
+        }
+
     </style>
 </head>
 
@@ -142,9 +183,26 @@
                 id="sendButton">Send</button>
         </div>
         <div class="language-toggle">
-            <button class="btn btn-custom">English 🇬🇧</button>
-            <img id="arrowIcon" src="../../static/images/ArrowIcon.png" width="40px">
-            <button class="btn btn-custom">Other Language 🌐</button>
+            <span class="dropdownContainer">
+                <button class="btn btn-custom"> 
+                    <span class="sourceFlag">🇬🇧</span> 
+                    <span class="sourceLang">EN</span>
+                </button>
+                <ul class="dropdownMenu dropLeft">
+
+                </ul>
+            </span>
+                <img id="arrowIcon" src="../../static/images/ArrowIcon.png" width="40px">
+            <span class="dropdownContainer">
+                <button class="btn btn-custom secondButton">
+                    <span class="targetFlag"> 🇪🇸 </span> 
+                    <span class="targetLang">ES</span>
+                </button>
+                <ul class="dropdownMenu dropRight">
+                    
+                </ul>
+            </span>
+            
         </div>
         <!-- Display uploaded file -->
         <div id="display-upload-container" class="w-100" style="display: none;">

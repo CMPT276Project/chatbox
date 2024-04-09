@@ -6,13 +6,87 @@ window.onload = function () {
     });
 }
 
+    // Language objects for dropdown menu
+    // TO BE REFACTORED
+
+    const enObj = {
+        fullName: 'English',
+        countryCode: 'EN',
+        flagEmoji: '🇬🇧',
+    }
+    
+    const esObj = {
+        fullName: 'Spanish',
+        countryCode: 'ES',
+        flagEmoji: '🇪🇸',
+    }
+    
+    const frObj = {
+        fullName: 'French',
+        countryCode: 'FR',
+        flagEmoji: '🇫🇷',
+    }
+    
+    const itObj = {
+        fullName: 'Italian',
+        countryCode: 'IT',
+        flagEmoji: '🇮🇹',
+    }
+
+
+
+
+
+function initializeDropdownMenu(){
+
+    const languages = [enObj, esObj, frObj, itObj];
+    let targetFlag = 0;
+    const dropdownMenus = document.querySelectorAll(".dropdownMenu");
+    dropdownMenus.forEach(() => {
+        for (const language of languages) {
+            const newListElement = document.createElement("li");
+            newListElement.textContent = language.flagEmoji + " " + language.fullName;
+            let languageObject = language;
+            console.log(languageObject);
+            
+            console.log(targetFlag);
+            switch(targetFlag){
+                case 0:
+                    newListElement.addEventListener('click', () => updateSourceLanguage(languageObject))
+                    console.log("POG")
+                    break;
+                case 1:
+                    newListElement.addEventListener('click', () => updateTargetLanguage(languageObject))
+                    break;
+            }
+            dropdownMenus[targetFlag].appendChild(newListElement);
+            
+        }
+        targetFlag += 1;
+    })
+}
+
+initializeDropdownMenu();
+
+function updateSourceLanguage(languageObj){
+    document.querySelector(".sourceLang").textContent = languageObj.countryCode;
+    document.querySelector(".sourceFlag").textContent = languageObj.flagEmoji;
+}
+
+function updateTargetLanguage(languageObj){
+    document.querySelector(".targetLang").textContent = languageObj.countryCode;
+    document.querySelector(".targetFlag").textContent = languageObj.flagEmoji;
+}
+
 
 // Handle message send and/or file upload
 async function handleSend(uid, senderName) {
     var messageContent = document.getElementById("messageInput").value;
     // Translate message if source and target languages are different
-    const sourceLanguage = "en"; // Get source language from dropdown
-    const targetLanguage = "zh"; // Get target language from dropdown
+    
+    const sourceLanguage = document.querySelector(".sourceLang").textContent.toLowerCase(); // Get source language from dropdown
+    const targetLanguage = document.querySelector(".targetLang").textContent.toLowerCase(); // Get target language from dropdown
+
     if (sourceLanguage !== targetLanguage) {
         messageContent = await translateText(messageContent, targetLanguage, sourceLanguage);
     }
