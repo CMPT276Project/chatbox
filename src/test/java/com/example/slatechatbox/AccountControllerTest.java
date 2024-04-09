@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -178,7 +179,7 @@ public class AccountControllerTest {
 
     @Test
     public void testGetChatroom() throws Exception {
-        Account account = new Account("username", "password");
+        Account account = new Account("username", "password", "name");
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("session_account", account);
 
@@ -187,6 +188,7 @@ public class AccountControllerTest {
                 .andExpect(model().attribute("account", account));
     }
 
+  
     @Test
     public void testGetHistory() throws Exception {
         Message message1 = new Message(1, "Hello", "123456789", "Alice", -1, "");
@@ -206,5 +208,19 @@ public class AccountControllerTest {
                 .andExpect(model().attribute("account", account))
                 .andExpect(model().attribute("messages", messages));
     }
+
+    @Test 
+    public void testChangeName () throws Exception {
+        Account account = new Account("username", "password", "name");
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("session_account", account);
+
+        mockMvc.perform(post("/changename").session(session)
+                .param("name", "newName"))
+                .andExpect(view().name("account/home"))
+                .andExpect(model().attribute("account", account));
+    }
+
+
 
 }

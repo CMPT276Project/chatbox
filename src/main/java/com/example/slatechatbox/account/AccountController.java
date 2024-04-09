@@ -19,6 +19,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.slatechatbox.message.Message;
 import com.example.slatechatbox.message.MessageRepository;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class AccountController {
@@ -115,7 +117,8 @@ public String registerAccount(@RequestParam Map<String, String> newaccount, Mode
     }
     String username = newaccount.get("username");
     String password = newaccount.get("password");
-    accountRepo.save(new Account(username,password));
+    String name = newaccount.get("username");
+    accountRepo.save(new Account(username,password,name));
     System.out.println("new account saved");
     response.setStatus(201);
     model.addAttribute("success", "Registration successful!");
@@ -138,6 +141,22 @@ public String registerAccount(@RequestParam Map<String, String> newaccount, Mode
         model.addAttribute("account", account);
         return "account/history";
     }
+
+    @PostMapping("/changename")
+    public String changeName(@RequestParam Map<String, String> formData, Model model, HttpServletRequest request,
+            HttpSession session, HttpServletResponse response) {
+        Account account = (Account) session.getAttribute("session_account");
+        if (account == null) {
+            return "account/login";
+        }
+        String name = formData.get("name");
+        account.setName(name);
+        accountRepo.save(account);
+        model.addAttribute("account", account);
+        return "account/home";
+    }
+   
+
 
 }
 

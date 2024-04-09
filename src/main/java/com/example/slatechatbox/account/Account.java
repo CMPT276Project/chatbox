@@ -11,13 +11,15 @@ public class Account {
     private int uid;
     private String username;
     private String password;
+    private String name;
     
 
     public Account() {
     }
-    public Account(String username, String password) {
+    public Account(String username, String password, String name) {
         this.username = username;
         this.password = password;
+        this.name = username;
     }
     public String getUsername() {
         return username;
@@ -37,5 +39,12 @@ public class Account {
     public void setUid(int uid) {
         this.uid = uid;
     }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
     
 }
