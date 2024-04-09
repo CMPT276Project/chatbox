@@ -46,5 +46,6 @@ html {
     border: solid var(--darkshade) 1px;
     border-radius: 8px;
     background-color: var(--maincolor);
+    text-decoration: none;
 } 
 

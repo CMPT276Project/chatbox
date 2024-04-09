@@ -129,6 +129,7 @@ public String registerAccount(@RequestParam Map<String, String> newaccount, Mode
         return "account/chatroomPage";
     }
 
+
     @GetMapping("/history")
     public String getHistory(Model model, HttpServletResponse request, HttpSession session) {
         Account account = (Account) session.getAttribute("session_account");
@@ -139,3 +140,4 @@ public String registerAccount(@RequestParam Map<String, String> newaccount, Mode
     }
 
 }
+
