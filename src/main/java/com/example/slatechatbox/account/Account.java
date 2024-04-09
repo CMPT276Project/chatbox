@@ -11,6 +11,7 @@ public class Account {
     private int uid;
     private String username;
     private String password;
+    private String name;
     
 
     public Account() {
@@ -37,5 +38,12 @@ public class Account {
     public void setUid(int uid) {
         this.uid = uid;
     }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
     
 }

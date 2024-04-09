@@ -10,7 +10,7 @@
             background-color: #443F46; 
             font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
-        .btn-signout, .btn-history, .btn-chat-room {
+        .btn-signout, .btn-history, .btn-chat-room, .btn-change-name {
             background-color: #83A37C; 
             border-color: #83A37C;
             color: white;
@@ -38,10 +38,22 @@
             left: 16px;
         }
         .fixed-bottom-right {
-            position: fixed;
+          	position: fixed;
             bottom: 8px;
             right: 16px;
         }
+        .centered-btn {
+    		position: fixed;
+    		bottom: 195px;
+            right: 16px;
+            
+		}
+        .centered-text-box {
+    		position: fixed;
+    		bottom: 195px;
+            right: 230px;
+            
+		}
         .navbar-custom {
             background-color: #565656; /*light gray background, nav-bar */
         }
@@ -103,6 +115,11 @@
 
 <form action="/chatroom" method="GET">
     <button class="btn btn-chat-room fixed-bottom-right">Chat Room</button>
+</form>
+
+<form action="/changename" method="GET">
+	<input class="input input-change-name centered-text-box" type="text" name="name">
+    <button class="btn btn-change-name centered-btn">Change Display Name</button>
 </form>
 
 
