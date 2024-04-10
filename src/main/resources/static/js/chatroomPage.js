@@ -274,7 +274,7 @@ function disconnect() {
 }
 
 const stompClient = new StompJs.Client({
-    brokerURL: 'wss://slate-qwm7.onrender.com/websocket',
+    brokerURL: 'wss://slatechatbox.onrender.com/websocket',
     // brokerURL: 'ws://localhost:8080/websocket',
 });
 
