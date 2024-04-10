@@ -127,19 +127,7 @@
             <button class="btn btn-signout fixed-top-right">Sign Out</button>
         </form>
     </nav>
-    <div class="d-flex justify-content-center align-items-center flex-column" style="height: calc(100vh - 65px)">
-        <form action="/changename" method="POST">
-            <input class="form-input" type="text" name="name" th:value="${account.name}" required>
-            <button class="btn btn-change-name">Change Display Name</button>
-        </form>
-    </div>
-</nav>
 
-<!-- Sign Out, Tony -->
-<form action="/logout" method="GET">
-    <button class="btn btn-signout fixed-top-right">Sign Out</button>
-</form>
-<!-- History button, coming in iteration 2  -->
 <div class="flexContainer">
     <div class="flexButtons">
         <div class="chatButtons">
