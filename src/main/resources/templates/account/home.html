@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,70 +9,85 @@
     <link rel="icon" type="image/x-icon" href="images/slateicon.png">
     <style>
         body {
-            background-color: #443F46; 
+            background-color: #443F46;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
-        .btn-signout, .btn-history, .btn-chat-room, .btn-change-name {
-            background-color: #83A37C; 
+
+        .btn-signout,
+        .btn-history,
+        .btn-chat-room,
+        .btn-change-name {
+            background-color: #83A37C;
             border-color: #83A37C;
             color: white;
         }
+
         .header-text {
             color: white;
             text-align: center;
         }
-        
+
         .translation-section {
-            background-color: white; 
+            background-color: white;
             border-radius: 4px;
             margin-bottom: 20px;
             padding: 20px;
         }
-        
+
         .fixed-top-right {
             position: fixed;
             top: 8px;
             right: 16px;
         }
+
         .fixed-bottom-left {
             position: fixed;
             bottom: 8px;
             left: 16px;
         }
+
         .fixed-bottom-right {
-          	position: fixed;
+            position: fixed;
             bottom: 8px;
             right: 16px;
         }
+
         .centered-btn {
-    		position: fixed;
-    		bottom: 195px;
+            position: fixed;
+            bottom: 195px;
             right: 16px;
-            
-		}
-        .centered-text-box {
-    		position: fixed;
-    		bottom: 195px;
-            right: 230px;
-            
-		}
-        .navbar-custom {
-            background-color: #565656; /*light gray background, nav-bar */
+
         }
+
+        .centered-text-box {
+            position: fixed;
+            bottom: 195px;
+            right: 230px;
+
+        }
+
+        .navbar-custom {
+            background-color: #565656;
+            /*light gray background, nav-bar */
+        }
+
         .navbar-brand {
-            color: white; 
+            color: white;
             text-align: center;
             display: flex;
             width: 100%;
             justify-content: center;
         }
+
         .navbar-brand img {
-            width: 100px; 
-            height: auto; 
+            width: 100px;
+            height: auto;
         }
+
         a {
             color: white;
         }
+
         a:hover {
             color: black;
             text-decoration: none;
@@ -79,33 +95,28 @@
     </style>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-custom">
-    <div class="container">
-        <a class="navbar-brand" href="/"> 
-            <img id="logo" src="/images/slatelogo1.png" alt="Slate logo">
-        </a>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img id="logo" src="/images/slatelogo1.png" alt="Slate logo">
+            </a>
+        </div>
+        <form action="/logout" method="GET">
+            <button class="btn btn-signout fixed-top-right">Sign Out</button>
+        </form>
+    </nav>
+    <div class="d-flex justify-content-center align-items-center flex-column" style="height: calc(100vh - 65px)">
+        <form action="/changename" method="POST">
+            <input class="form-input" type="text" name="name" th:value="${account.name}" required>
+            <button class="btn btn-change-name">Change Display Name</button>
+        </form>
     </div>
-</nav>
-
-<!-- Sign Out, Tony -->
-<form action="/logout" method="GET">
-    <button class="btn btn-signout fixed-top-right">Sign Out</button>
-</form>
-<!-- History button, coming in iteration 2  -->
-<form action="/history" method="GET">
-<button class="btn btn-history fixed-bottom-left">History</button>
-</form>
-
-<form action="/chatroom" method="GET">
-    <button class="btn btn-chat-room fixed-bottom-right">Chat Room</button>
-</form>
-
-<form action="/changename" method="POST">
-	<input class="input input-change-name centered-text-box" type="text" name="name" th:value="${account.name}" required> 
-    <button class="btn btn-change-name centered-btn">Change Display Name</button>
-</form>
-
-
+    <form action="/history" method="GET">
+        <button class="btn btn-history fixed-bottom-left">History</button>
+    </form>
+    <form action="/chatroom" method="GET">
+        <button class="btn btn-chat-room fixed-bottom-right">Chat Room</button>
+    </form>
 </body>
+
 </html>
