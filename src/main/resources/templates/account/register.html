@@ -12,12 +12,14 @@
         <div class="container">
             <img id="logo" src="/images/slatelogo1.png" alt="Slate logo">
             <div id="card">
-                <div id="registertext">Create Account</div>
-                <div th:if="${error}" class="error-message">
-                    <p th:text="${error}"></p>
-                </div>
-                <div th:if="${success}" class="success-message">
-                    <p th:text="${success}"></p>
+                <div>
+                    <div id="registertext">Create Account</div>
+                    <div th:if="${error}" class="error-message">
+                        <p th:text="${error}"></p>
+                    </div>
+                    <div th:if="${success}" class="success-message">
+                        <p th:text="${success}"></p>
+                    </div>
                 </div>
                 <div>
                     <div id="username"><input type="text" placeholder="Username" name="username" pattern="\w{3,20}" required /> </div>
