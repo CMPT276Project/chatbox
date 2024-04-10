@@ -119,7 +119,7 @@
 </form>
 
 <form action="/changename" method="POST">
-	<input class="input input-change-name centered-text-box" type="text" name="name" value="${account.name}" required> 
+	<input class="input input-change-name centered-text-box" type="text" name="name" th:value="${account.name}" required> 
     <button class="btn btn-change-name centered-btn">Change Display Name</button>
 </form>
 

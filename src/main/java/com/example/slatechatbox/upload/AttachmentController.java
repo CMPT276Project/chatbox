@@ -27,7 +27,7 @@ public class AttachmentController {
     private SimpMessagingTemplate template;
 
     @PostMapping("/upload")
-    public void uploadFile(@RequestBody Map<String, String> body, @RequestParam("file") MultipartFile file) throws Exception {
+    public ResponseEntity<String> uploadFile(@RequestBody Map<String, String> body, @RequestParam("file") MultipartFile file) throws Exception {
         Attachment attachment = attachmentService.saveAttachment(file);
         Integer fileId = Integer.valueOf(attachment.getId());
         Message messageObj = new Message(
@@ -35,6 +35,7 @@ public class AttachmentController {
             body.get("timeStampMilliseconds"), body.get("content"), fileId, attachment.getFileName());
         messageRepository.save(messageObj);
         template.convertAndSend("/topic/output", messageObj);
+        return ResponseEntity.ok().body("File uploaded successfully");
     }
 
     @GetMapping("/download/{id}")

@@ -19,7 +19,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.slatechatbox.message.Message;
 import com.example.slatechatbox.message.MessageRepository;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller

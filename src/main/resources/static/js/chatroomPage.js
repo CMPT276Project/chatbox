@@ -1,3 +1,5 @@
+let username = document.body.getAttribute('name');
+
 window.onload = function () {
     connect();
     document.getElementById('messageForm').addEventListener('submit', function (event) {
@@ -5,6 +7,10 @@ window.onload = function () {
         document.getElementById('sendButton').click();
     });
 }
+
+window.onbeforeunload = function() {
+    stompClient.publish({destination: '/app/stopTyping', body: JSON.stringify({username: username})});
+};
 
 // Language objects for dropdown menu
 
@@ -45,9 +51,6 @@ function initializeDropdownMenu(){
             const newListElement = document.createElement("li");
             newListElement.textContent = language.flagEmoji + " " + language.fullName;
             let languageObject = language;
-            console.log(languageObject);
-            
-            console.log(targetFlag);
             switch(targetFlag){
                 case 0:
                     newListElement.addEventListener('click', () => updateSourceLanguage(languageObject))
@@ -85,7 +88,7 @@ async function handleSend(uid, senderName) {
     const sourceLanguage = document.querySelector(".sourceLang").textContent.toLowerCase(); // Get source language from dropdown
     const targetLanguage = document.querySelector(".targetLang").textContent.toLowerCase(); // Get target language from dropdown
 
-    if (sourceLanguage !== targetLanguage) {
+    if (sourceLanguage !== targetLanguage && messageContent !== '') {
         messageContent = await translateText(messageContent, targetLanguage, sourceLanguage);
     }
     // End typing indicator
@@ -97,16 +100,17 @@ async function handleSend(uid, senderName) {
         sendMessage(uid, senderName, messageContent);
     }
     else {
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('uid', uid);
+        formData.append('senderName', senderName);
+        formData.append('timeStampMilliseconds', new Date().getTime().toString());
+        formData.append('content', messageContent);
+        console.log(fileInput.files[0])
         const res = await fetch('/upload', {
             method: 'POST',
             enctype: 'multipart/form-data',
-            body: JSON.stringify({
-                file: fileInput.files[0],
-                content: messageContent,
-                uid: uid,
-                senderName: senderName,
-                timeStampMilliseconds: new Date().getTime().toString()
-            })
+            body: formData
         });
         if (res.ok) {
             console.log('File uploaded');
