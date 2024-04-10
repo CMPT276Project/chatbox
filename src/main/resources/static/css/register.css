@@ -25,7 +25,7 @@ html {
 #card {
     background-color: var(--lightshade);
     width: 400px;
-    height: 535px;
+    height: 555px;
     display: flex;
     align-items: center;
     flex-flow: column;
