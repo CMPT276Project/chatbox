@@ -198,7 +198,7 @@ function showMessage(content) {
     scrollToBottom();
 }
 
-// Image uploading
+// FIle uploading
 
 const displayUploadContainer = document.getElementById('display-upload-container');
 document.getElementById('fileInput').addEventListener('change', function () {
