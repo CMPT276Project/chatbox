@@ -76,6 +76,28 @@
             color: black;
             text-decoration: none;
         }
+        
+        .flexContainer {
+            display: flex;
+            min-width: 100vw;
+            margin-top: 80px;
+            align-items: center;
+            flex-flow: column;
+        }
+
+        .flexButtons {
+            display: flex;
+            gap: 40px;
+            flex-flow: column wrap;
+            align-items: baseline;
+            max-width: 435px;
+        }
+
+        .chatButtons {
+            display: flex;
+            justify-content: space-between;
+            min-width: 435px;
+        }
     </style>
 </head>
 <body>
@@ -93,19 +115,25 @@
     <button class="btn btn-signout fixed-top-right">Sign Out</button>
 </form>
 <!-- History button, coming in iteration 2  -->
-<form action="/history" method="GET">
-<button class="btn btn-history fixed-bottom-left">History</button>
-</form>
+<div class="flexContainer">
+    <div class="flexButtons">
+        <div class="chatButtons">
+            <form action="/chatroom" method="GET">
+                <button class="btn btn-chat-room">Chat Room</button>
+            </form>
 
-<form action="/chatroom" method="GET">
-    <button class="btn btn-chat-room fixed-bottom-right">Chat Room</button>
-</form>
+            <form action="/history" method="GET">
+            <button class="btn btn-history">History</button>
+            </form>
+        </div>
 
-<form action="/changename" method="POST">
-	<input class="input input-change-name centered-text-box" type="text" name="name" th:value="${account.name}" required> 
-    <button class="btn btn-change-name centered-btn">Change Display Name</button>
-</form>
 
+        <form action="/changename" method="POST">
+            <input class="input input-change-name " type="text" name="name" th:value="${account.name}" required> 
+            <button class="btn btn-change-name ">Change Display Name</button>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>
