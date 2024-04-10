@@ -100,16 +100,14 @@ async function handleSend(uid, senderName) {
         sendMessage(uid, senderName, messageContent);
     }
     else {
-        const formData = new FormData();
+        let formData = new FormData();
         formData.append('file', fileInput.files[0]);
+        formData.append('content', messageContent);
         formData.append('uid', uid);
         formData.append('senderName', senderName);
         formData.append('timeStampMilliseconds', new Date().getTime().toString());
-        formData.append('content', messageContent);
-        console.log(fileInput.files[0])
         const res = await fetch('/upload', {
             method: 'POST',
-            enctype: 'multipart/form-data',
             body: formData
         });
         if (res.ok) {
@@ -173,15 +171,15 @@ async function translateText(text, targetLanguage, sourceLanguage) {
 
 
 // Display message in chat window
-async function showMessage(message) {
-    const text = document.createElement('span');
-    text.textContent = message.senderName + ": " + message.content;
+function showMessage(content) {
+    const message = document.createElement('span');
+    message.textContent = content.senderName + ": " + content.content;
     const div = document.createElement('div');
     div.classList.add('chat-message');
-    div.appendChild(text);
-    if (message.fileId != -1) {
-        const fileUriString = `/download/${message.fileId}`;
-        const fileName = message.fileName;
+    div.appendChild(message);
+    if (content.fileId != -1) {
+        const fileUriString = `/download/${content.fileId}`;
+        const fileName = content.fileName;
         const svgString = `<svg xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;" width="16" height="16"fill="black" class="bi bi-download" viewBox="0 0 16 16">
                             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
                             <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
@@ -200,8 +198,7 @@ async function showMessage(message) {
     scrollToBottom();
 }
 
-
-// Image uploading
+// FIle uploading
 
 const displayUploadContainer = document.getElementById('display-upload-container');
 document.getElementById('fileInput').addEventListener('change', function () {
